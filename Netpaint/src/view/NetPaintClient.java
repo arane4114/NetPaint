@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -20,7 +21,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import model.Drawable;
+import model.Image;
 import model.Line;
+import model.Oval;
 import model.Rectangle;
 
 public class NetPaintClient extends JFrame {
@@ -29,6 +32,7 @@ public class NetPaintClient extends JFrame {
 	private Color color;
 	private String currentString = "Line";
 	private DrawPanel drawPanel;
+	private boolean firstremove;
 
 	private int initialXLocation;
 	private int initialYLocation;
@@ -46,9 +50,11 @@ public class NetPaintClient extends JFrame {
 
 		initialXLocation = 0;
 		initialYLocation = 0;
+		firstremove = false;
 
 		drawPanel = new DrawPanel();
 		drawPanel.addMouseListener(new mouseListener());
+		drawPanel.addMouseMotionListener(new mouseListener());
 		JScrollPane scrollPane = new JScrollPane(drawPanel);
 		scrollPane.setPreferredSize(new Dimension(1000, 500));
 
@@ -99,7 +105,7 @@ public class NetPaintClient extends JFrame {
 		new NetPaintClient();
 	}
 
-	private class mouseListener implements MouseListener {
+	private class mouseListener implements MouseListener, MouseMotionListener {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -113,17 +119,29 @@ public class NetPaintClient extends JFrame {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
+			drawPanel.remove();
 			if (currentString.equals(lineString)) {
 				Line line = new Line(initialXLocation, initialYLocation,
 						e.getY() - initialYLocation, e.getX()
 								- initialXLocation, color);
 				drawPanel.addObject((Drawable) line);
-			} else if(currentString.equals(rectangleString)){
-				Rectangle rect = new Rectangle(initialXLocation, initialYLocation,
-						e.getY() - initialYLocation, e.getX()
-						- initialXLocation, color);
+			} else if (currentString.equals(rectangleString)) {
+				Rectangle rect = new Rectangle(initialXLocation,
+						initialYLocation, e.getY() - initialYLocation, e.getX()
+								- initialXLocation, color);
 				drawPanel.addObject((Drawable) rect);
+			} else if (currentString.equals(ovalString)) {
+				Oval oval = new Oval(initialXLocation, initialYLocation,
+						e.getY() - initialYLocation, e.getX()
+								- initialXLocation, color);
+				drawPanel.addObject((Drawable) oval);
+			} else if (currentString.equals(imageString)) {
+				Image image = new Image(initialXLocation, initialYLocation,
+						e.getY() - initialYLocation, e.getX()
+								- initialXLocation, color);
+				drawPanel.addObject((Drawable) image);
 			}
+			firstremove = false;
 		}
 
 		@Override
@@ -132,6 +150,44 @@ public class NetPaintClient extends JFrame {
 
 		@Override
 		public void mouseExited(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			Color tempColor = new Color(color.getRed(), color.getGreen(),
+					color.getBlue(), color.getAlpha() / 2);
+			if (firstremove == false) {
+				firstremove = true;
+			} else {
+				drawPanel.remove();
+			}
+			if (currentString.equals(lineString)) {
+				Line line = new Line(initialXLocation, initialYLocation,
+						e.getY() - initialYLocation, e.getX()
+								- initialXLocation, tempColor);
+				drawPanel.addObject((Drawable) line);
+			} else if (currentString.equals(rectangleString)) {
+				Rectangle rect = new Rectangle(initialXLocation,
+						initialYLocation, e.getY() - initialYLocation, e.getX()
+								- initialXLocation, tempColor);
+				drawPanel.addObject((Drawable) rect);
+			} else if (currentString.equals(ovalString)) {
+				Oval oval = new Oval(initialXLocation, initialYLocation,
+						e.getY() - initialYLocation, e.getX()
+								- initialXLocation, tempColor);
+				drawPanel.addObject((Drawable) oval);
+			} else if (currentString.equals(imageString)) {
+				Image image = new Image(initialXLocation, initialYLocation,
+						e.getY() - initialYLocation, e.getX()
+								- initialXLocation, tempColor);
+				drawPanel.addObject((Drawable) image);
+			}
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			// TODO Auto-generated method stub
+
 		}
 
 	}

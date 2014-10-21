@@ -13,7 +13,7 @@ public class Oval extends Drawable {
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
 		g.setColor(color);
-		g.drawOval(point.x, point.y, width, height);
+		g.fillOval(point.x, point.y, width, height);
 	}
 
 }

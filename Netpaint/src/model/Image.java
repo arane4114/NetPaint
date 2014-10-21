@@ -13,7 +13,7 @@ public class Image extends Drawable {
 	public Image(int x, int y, int height, int width, Color color) {
 		super(x, y, height, width, color);
 		try {
-			doge = ImageIO.read(new File("Doge.jpeg"));
+			doge = ImageIO.read(new File("doge.jpeg"));
 		} catch (Exception e) {
 			System.err.println("Couldnt print a doge");
 		}
