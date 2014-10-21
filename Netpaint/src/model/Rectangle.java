@@ -24,17 +24,11 @@ public class Rectangle extends Drawable {
 	}
 	
 	public static int heightChange(int height){
-		if(height < 0){
-			return Math.abs(height);
-		}
-		return height;
+		return Math.abs(height);
 	}
 	
 	public static int widthChange(int width){
-		if(width < 0){
-			return Math.abs(width);
-		}
-		return width;
+		return Math.abs(width);
 	}
 
 	@Override

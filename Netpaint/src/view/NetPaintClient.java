@@ -189,7 +189,6 @@ public class NetPaintClient extends JFrame {
 			// TODO Auto-generated method stub
 
 		}
-
 	}
 
 	private class buttonListener implements ActionListener {
