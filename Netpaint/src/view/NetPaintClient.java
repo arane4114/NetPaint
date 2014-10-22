@@ -85,7 +85,7 @@ public class NetPaintClient extends JFrame {
 		imageButton.addActionListener(new buttonListener());
 		group.add(imageButton);
 		buttonPanel.add(imageButton);
-
+		
 		color = Color.white;
 		jcc = new JColorChooser();
 		jcc.getSelectionModel().addChangeListener(new changeListener());
@@ -119,7 +119,10 @@ public class NetPaintClient extends JFrame {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			drawPanel.remove();
+			if(initialXLocation != e.getX() && initialYLocation != e.getY()){
+				drawPanel.remove();
+			}
+			
 			if (currentString.equals(lineString)) {
 				Line line = new Line(initialXLocation, initialYLocation,
 						e.getY() - initialYLocation, e.getX()
