@@ -1,5 +1,11 @@
 package view;
 
+/**
+ * NetPaintClient holds the programs main method and constructs the GUI.
+ * 
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ */
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -44,6 +50,11 @@ public class NetPaintClient extends JFrame {
 	private static String rectangleString = "Rectangle";
 	private static String imageString = "Image";
 
+	/**
+	 * Constructs a GUI with a DrawPanel in a scroll pane,
+	 * a panel with buttons, and a panel with a JColorChooser. 
+	 * Sets all actionlisteners.
+	 */
 	public NetPaintClient() {
 		setTitle("Net Paint Client");
 		setSize(1000, 1000);
@@ -104,10 +115,22 @@ public class NetPaintClient extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * Main method, creates a new NetPaintClient.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		new NetPaintClient();
 	}
 
+	/**
+	 * MouseListener listens for mousePressed and mouseMoved. Handels all logic for
+	 * passing object to draw panel.
+	 * 
+	 * @author Abhishek Rane
+	 * @author Bryce Hammod
+	 */
 	private class mouseListener implements MouseListener, MouseMotionListener {
 
 		@Override
@@ -203,6 +226,12 @@ public class NetPaintClient extends JFrame {
 		}
 	}
 
+	/**
+	 * ButtonListener for drawable object selection.
+	 * 
+	 * @author Abhishek Rane
+	 * @author Bryce Hammod
+	 */
 	private class buttonListener implements ActionListener {
 
 		@Override
@@ -210,7 +239,13 @@ public class NetPaintClient extends JFrame {
 			currentString = e.getActionCommand();
 		}
 	}
-
+	
+	/**
+	 * ChangeListener for color change selection.
+	 * 
+	 * @author Abhishek Rane
+	 * @author Bryce Hammod
+	 */
 	private class changeListener implements ChangeListener {
 
 		@Override

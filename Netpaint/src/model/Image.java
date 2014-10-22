@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * Image is an drawable object.
+ * It is an image of a doge that can be drawn to the scroll pane.
+ * 
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ */
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -10,6 +17,16 @@ import javax.imageio.ImageIO;
 public class Image extends Drawable {
 	private BufferedImage doge;
 
+	/**
+	 * Constructs a Image. 
+	 * Points can be negative for flipped image printing.
+	 * 
+	 * @param x Initial x point.
+	 * @param y Initial y point.
+	 * @param height Height of object.
+	 * @param width Width of object.
+	 * @param color Color of object.
+	 */
 	public Image(int x, int y, int height, int width, Color color) {
 		super(x, y, height, width, color);
 		try {
@@ -19,6 +36,9 @@ public class Image extends Drawable {
 		}
 	}
 
+	/**
+	 * Paint Component for printing an Image object to a location.
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
