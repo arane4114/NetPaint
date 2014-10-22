@@ -6,28 +6,28 @@ import java.awt.Graphics;
 public class Oval extends Drawable {
 
 	public Oval(int x, int y, int height, int width, Color color) {
-		super(xChange(x, width), yChange(y, height), heightChange(height), widthChange(width), color);
+		super(calculateX(x, width), calculateY(y, height), calculateHeight(height), calculateWidth(width), color);
 	}
 
-	public static int xChange(int x, int width){
+	public static int calculateX(int x, int width){
 		if(width < 0){
 			return x + width;
 		}
 		return x;
 	}
 	
-	public static int yChange(int y, int height){
+	public static int calculateY(int y, int height){
 		if(height < 0){
 			return y + height;
 		}
 		return y;
 	}
 	
-	public static int heightChange(int height){
+	public static int calculateHeight(int height){
 		return Math.abs(height);
 	}
 	
-	public static int widthChange(int width){
+	public static int calculateWidth(int width){
 		return Math.abs(width);
 	}
 	
