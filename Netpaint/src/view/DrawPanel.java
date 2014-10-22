@@ -1,11 +1,6 @@
 package view;
 
-/**
- * DrawPanel is a panel that the drawable objects are drawn on.
- * 
- * @author Abhishek Rane
- * @author Bryce Hammod
- */
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,7 +10,11 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import model.Drawable;
-
+/**
+ * DrawPanel is a panel that the {@link Drawable} objects are drawn on.
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ */
 public class DrawPanel extends JPanel {
 
 	private List<Drawable> items;

@@ -1,21 +1,20 @@
 package model;
 
-/**
- * Rectangle is a drawable object.
- * 
- * @author Abhishek Rane
- * @author Bryce Hammod
- */
+
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Rectangle is a {@link Drawable} object.
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ */
 public class Rectangle extends Drawable {
 
 	/**
 	 * Constructs a Rectangle. 
 	 * Calculations are done on the arguments to find true top left point
-	 * and height and width.
-	 * 
+	 * and height and width. 
 	 * @param x Initial x point.
 	 * @param y Initial y point.
 	 * @param height Height of object.
@@ -28,7 +27,6 @@ public class Rectangle extends Drawable {
 	
 	/**
 	 * Finds true x value for the top left of the Rectangle.
-	 * 
 	 * @param x Starting x point from initial click.
 	 * @param width Width of shape, can be negative.
 	 * @return Returns the true starting x coordinate.
@@ -41,11 +39,10 @@ public class Rectangle extends Drawable {
 	}
 	
 	/**
-	 * Finds true y value for the top left of the Rectangle.
-	 * 
+	 * Finds true y value for the top left of the Rectangle. 
 	 * @param y Starting y point from initial click.
 	 * @param height Height of shape, can be negative.
-	 * @return Returns the true starting y coordinate.
+	 * @return The true starting y coordinate.
 	 */
 	public static int calculateY(int y, int height){
 		if(height < 0){
@@ -55,8 +52,7 @@ public class Rectangle extends Drawable {
 	}
 	
 	/**
-	 * Takes absolute value of height and returns that value.
-	 * 
+	 * Takes absolute value of height and returns that value. 
 	 * @param height Height of shape, can be negative.
 	 * @return Returns a positive height through Math.abs().
 	 */
@@ -65,8 +61,7 @@ public class Rectangle extends Drawable {
 	}
 	
 	/**
-	 * Takes absolute value of width and returns that value.
-	 * 
+	 * Takes absolute value of width and returns that value. 
 	 * @param width Width of shape, can be negative.
 	 * @return Returns a positive width through Math.abs().
 	 */

@@ -2,7 +2,6 @@ package model;
 
 /**
  * Drawable is an object that can be drawn on a scroll pane.
- * 
  * @author Abhishek Rane
  * @author Bryce Hammod
  */
@@ -21,7 +20,6 @@ public abstract class Drawable extends JPanel{
 	/**
 	 * This method returns the upper leftmost point for the drawable shape. It
 	 * is implemented here as it will be the same for all drawable objects.
-	 * 
 	 * @return The upper left point of the object.
 	 */
 	public Point getUpperLeft() {
@@ -30,7 +28,6 @@ public abstract class Drawable extends JPanel{
 	
 	/**
 	 * Constructs a drawable object. 
-	 * 
 	 * @param x Initial x point.
 	 * @param y Initial y point.
 	 * @param height Height of object.

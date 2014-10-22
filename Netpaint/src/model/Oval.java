@@ -1,21 +1,18 @@
 package model;
-
-/**
- * Oval is a drawable object.
- * 
- * @author Abhishek Rane
- * @author Bryce Hammod
- */
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Oval is a {@link Drawable} object.
+ * @author Abhishek Rane
+ * @author Bryce Hammod
+ */
 public class Oval extends Drawable {
 
 	/**
 	 * Constructs a Oval. 
 	 * Calculations are done on the arguments to find true top left point
 	 * and height and width.
-	 * 
 	 * @param x Initial x point.
 	 * @param y Initial y point.
 	 * @param height Height of object.
@@ -27,8 +24,7 @@ public class Oval extends Drawable {
 	}
 
 	/**
-	 * Finds true x value for the top left of the Oval.
-	 * 
+	 * Finds true x value for the top left of the Oval. 
 	 * @param x Starting x point from initial click.
 	 * @param width Width of shape, can be negative.
 	 * @return Returns the true starting x coordinate.
@@ -41,8 +37,7 @@ public class Oval extends Drawable {
 	}
 	
 	/**
-	 * Finds true y value for the top left of the Oval.
-	 * 
+	 * Finds true y value for the top left of the Oval. 
 	 * @param y Starting y point from initial click.
 	 * @param height Height of shape, can be negative.
 	 * @return Returns the true starting y coordinate.
@@ -56,7 +51,6 @@ public class Oval extends Drawable {
 	
 	/**
 	 * Takes absolute value of height and returns that value.
-	 * 
 	 * @param height Height of shape, can be negative.
 	 * @return Returns a positive height through Math.abs().
 	 */
@@ -65,8 +59,7 @@ public class Oval extends Drawable {
 	}
 	
 	/**
-	 * Takes absolute value of width and returns that value.
-	 * 
+	 * Takes absolute value of width and returns that value. 
 	 * @param width Width of shape, can be negative.
 	 * @return Returns a positive width through Math.abs().
 	 */
