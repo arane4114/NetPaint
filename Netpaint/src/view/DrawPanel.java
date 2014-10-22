@@ -22,7 +22,6 @@ public class DrawPanel extends JPanel {
 
 	/**
 	 * Constructs a DrawPanel and List to hold objects drawn.
-	 * Size is set to (2000, 2000).
 	 */
 	public DrawPanel() {
 		items = new LinkedList<Drawable>();
