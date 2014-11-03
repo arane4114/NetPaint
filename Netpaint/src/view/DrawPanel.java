@@ -59,4 +59,9 @@ public class DrawPanel extends JPanel {
 			drawItem.paintComponent(g);
 		}
 	}
+	
+	public void update(List<Drawable> items) {
+		this.items = items;
+		repaint();
+	}
 }

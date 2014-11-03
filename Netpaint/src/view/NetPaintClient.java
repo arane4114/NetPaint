@@ -1,6 +1,5 @@
 package view;
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -9,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.ObjectOutputStream;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -20,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import model.AddObjectCommand;
 import model.Drawable;
 import model.Image;
 import model.Line;
@@ -47,13 +49,17 @@ public class NetPaintClient extends JFrame {
 	private static String ovalString = "Oval";
 	private static String rectangleString = "Rectangle";
 	private static String imageString = "Image";
+	
+	private ObjectOutputStream output;
 
 	/**
 	 * Constructs a GUI with a DrawPanel in a scroll pane,
 	 * a panel with buttons, and a panel with a JColorChooser. 
 	 * Sets all actionlisteners.
 	 */
-	public NetPaintClient() {
+	public NetPaintClient(ObjectOutputStream output) {
+		this.output = output;
+		
 		setTitle("Net Paint Client");
 		setSize(1000, 1000);
 		setMinimumSize(new Dimension(1000, 1000));
@@ -117,9 +123,9 @@ public class NetPaintClient extends JFrame {
 	 * Main method, creates a new NetPaintClient.
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		new NetPaintClient();
-	}
+//	public static void main(String[] args) {
+//		new NetPaintClient();
+//	}
 
 	/**
 	 * MouseListener listens for mousePressed and mouseMoved. Handels all logic for
@@ -150,21 +156,42 @@ public class NetPaintClient extends JFrame {
 							e.getY() - initialYLocation, e.getX()
 									- initialXLocation, color);
 					drawPanel.addObject((Drawable) line);
+					try{
+						output.writeObject(new AddObjectCommand(line));
+					}catch(Exception e1){
+						e1.printStackTrace();
+					}
+					
 				} else if (currentString.equals(rectangleString)) {
 					Rectangle rect = new Rectangle(initialXLocation,
 							initialYLocation, e.getY() - initialYLocation,
 							e.getX() - initialXLocation, color);
 					drawPanel.addObject((Drawable) rect);
+					try{
+						output.writeObject(new AddObjectCommand(rect));
+					}catch(Exception e1){
+						e1.printStackTrace();
+					}
 				} else if (currentString.equals(ovalString)) {
 					Oval oval = new Oval(initialXLocation, initialYLocation,
 							e.getY() - initialYLocation, e.getX()
 									- initialXLocation, color);
 					drawPanel.addObject((Drawable) oval);
+					try{
+						output.writeObject(new AddObjectCommand(oval));
+					}catch(Exception e1){
+						e1.printStackTrace();
+					}
 				} else if (currentString.equals(imageString)) {
 					Image image = new Image(initialXLocation, initialYLocation,
 							e.getY() - initialYLocation, e.getX()
 									- initialXLocation, color);
 					drawPanel.addObject((Drawable) image);
+					try{
+						output.writeObject(new AddObjectCommand(image));
+					}catch(Exception e1){
+						e1.printStackTrace();
+					}
 				}
 				mousePressed = false;
 				firstremove = false;
@@ -246,5 +273,9 @@ public class NetPaintClient extends JFrame {
 		public void stateChanged(ChangeEvent e) {
 			color = jcc.getColor();
 		}
+	}
+	
+	public void update(List<Drawable> items) {
+		drawPanel.update(items);
 	}
 }

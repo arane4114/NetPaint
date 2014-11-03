@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
@@ -12,7 +13,7 @@ import javax.imageio.ImageIO;
  * @author Abhishek Rane
  * @author Bryce Hammod
  */
-public class Image extends Drawable {
+public class Image extends Drawable implements Serializable {
 	private BufferedImage doge;
 
 	/**
@@ -41,5 +42,4 @@ public class Image extends Drawable {
 		super.paintComponents(g);
 		g.drawImage(doge, point.x, point.y, width, height, null);
 	}
-
 }
