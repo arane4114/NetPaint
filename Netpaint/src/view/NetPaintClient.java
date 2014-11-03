@@ -57,10 +57,10 @@ public class NetPaintClient extends JFrame {
 	 * a panel with buttons, and a panel with a JColorChooser. 
 	 * Sets all actionlisteners.
 	 */
-	public NetPaintClient(ObjectOutputStream output) {
+	public NetPaintClient(ObjectOutputStream output, String clientName) {
 		this.output = output;
 		
-		setTitle("Net Paint Client");
+		setTitle("Net Paint Client: " + clientName);
 		setSize(1000, 1000);
 		setMinimumSize(new Dimension(1000, 1000));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

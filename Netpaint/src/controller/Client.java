@@ -84,7 +84,7 @@ public class Client {
 	 * 	Creates a ChatPanel and adds it to this frame
 	 */
 	private void setupGUI() {
-		netPaintClient = new NetPaintClient(out);	
+		netPaintClient = new NetPaintClient(out, clientName);	
 		netPaintClient.addWindowListener(new WindowAdapter(){
 		public void windowClosing(WindowEvent arg0) {
 			try {
