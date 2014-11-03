@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.event.WindowAdapter;
+
 import java.awt.event.WindowEvent;
 import java.io.EOFException;
 import java.io.IOException;
@@ -10,7 +11,6 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import view.NetPaintClient;
@@ -84,8 +84,7 @@ public class Client {
 	 * 	Creates a ChatPanel and adds it to this frame
 	 */
 	private void setupGUI() {
-		netPaintClient = new NetPaintClient(out);
-		
+		netPaintClient = new NetPaintClient(out);	
 		netPaintClient.addWindowListener(new WindowAdapter(){
 		public void windowClosing(WindowEvent arg0) {
 			try {

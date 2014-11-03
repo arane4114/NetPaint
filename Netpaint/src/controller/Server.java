@@ -65,6 +65,7 @@ public class Server {
 					
 					// add a notification message to the chat log
 					System.out.println(clientName + " connected");
+					updateClients();
 				}
 			}catch(Exception e){
 				e.printStackTrace();
