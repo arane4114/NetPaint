@@ -56,7 +56,20 @@ public class Client {
 	public Client(){
 		// ask the user for a host, port, and user name
 		String host = JOptionPane.showInputDialog("Host address:");
+		
 		String port = JOptionPane.showInputDialog("Host port:");
+		boolean shouldRepeat = true;
+		int portNum = 0;
+		while(shouldRepeat){
+			try{
+			portNum = Integer.parseInt(port);
+			shouldRepeat = false;
+			}
+			catch(NumberFormatException e){
+				port = JOptionPane.showInputDialog("Host port:");
+			}
+		}
+		
 		clientName = JOptionPane.showInputDialog("User name:");
 		
 		if (host == null || port == null || clientName == null)
@@ -64,7 +77,7 @@ public class Client {
 		
 		try{
 			// Open a connection to the server
-			server = new Socket(host, Integer.parseInt(port));
+			server = new Socket(host, portNum);
 			out = new ObjectOutputStream(server.getOutputStream());
 			in = new ObjectInputStream(server.getInputStream());
 			
@@ -79,7 +92,7 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * 	Creates a ChatPanel and adds it to this frame
 	 */

@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  * @author Bryce Hammod
  */
 public class Image extends Drawable implements Serializable {
-	private BufferedImage doge;
+	private transient BufferedImage doge = null;
 
 	/**
 	 * Constructs a Image. 
@@ -40,6 +40,13 @@ public class Image extends Drawable implements Serializable {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
+		if(doge == null){
+			try {
+				doge = ImageIO.read(new File("doge.jpeg"));
+			} catch (Exception e) {
+				System.err.println("Couldnt print a doge");
+			}
+		}
 		g.drawImage(doge, point.x, point.y, width, height, null);
 	}
 }
