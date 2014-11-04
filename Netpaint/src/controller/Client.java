@@ -1,7 +1,6 @@
 package controller;
 
 import java.awt.event.WindowAdapter;
-
 import java.awt.event.WindowEvent;
 import java.io.EOFException;
 import java.io.IOException;
@@ -13,11 +12,18 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import view.NetPaintClient;
-import model.Command;
-import model.DisconnectCommand;
-import model.Drawable;
+import command.Command;
+import command.DisconnectCommand;
 
+import shapes.Drawable;
+import view.NetPaintClient;
+
+/**
+ * The client objects constructs a {@link view.DrawPanel} and links it to a {@link controller.Server}.
+ * @author Abhishek Rane
+ * @author Bryce Hammond
+ *
+ */
 public class Client {
 	private String clientName; // user name of the client
 	private NetPaintClient netPaintClient;
@@ -53,6 +59,9 @@ public class Client {
 		}
 	}
 	
+	/**
+	 * Creates a new client with server information provided by the end user.
+	 */
 	public Client(){
 		// ask the user for a host, port, and user name
 		String host = JOptionPane.showInputDialog("Host address:");
@@ -94,7 +103,7 @@ public class Client {
 	}
 	
 	/**
-	 * 	Creates a ChatPanel and adds it to this frame
+	 * 	Creates a DrawPanel and adds it to this frame
 	 */
 	private void setupGUI() {
 		netPaintClient = new NetPaintClient(out, clientName);	
@@ -110,7 +119,11 @@ public class Client {
 		}
 	});
 	}
-
+	
+	/**
+	 * Entry point for the server version of the app.
+	 * @param args Not used here.
+	 */
 	public static void main(String[] args){
 		new Client();
 	}

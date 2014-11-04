@@ -1,4 +1,4 @@
-package model;
+package shapes;
 
 /**
  * Drawable is an object that can be drawn on a scroll pane.

@@ -1,4 +1,4 @@
-package model;
+package command;
 
 import controller.Server;
 
@@ -6,6 +6,8 @@ import controller.Server;
  * This command is sent by a client that is disconnecting
  * 
  * @author Gabriel Kishi
+ * @author Abhishek Rane
+ * @author Bryce Hammod
  *
  */
 public class DisconnectCommand extends Command<Server>{

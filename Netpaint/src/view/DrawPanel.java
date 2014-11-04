@@ -1,6 +1,5 @@
 package view;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -9,9 +8,11 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import model.Drawable;
+import shapes.Drawable;
+
 /**
  * DrawPanel is a panel that the {@link Drawable} objects are drawn on.
+ * 
  * @author Abhishek Rane
  * @author Bryce Hammod
  */
@@ -29,7 +30,9 @@ public class DrawPanel extends JPanel {
 
 	/**
 	 * Adds drawable object to objects drawn list.
-	 * @param object Drawable object.
+	 * 
+	 * @param object
+	 *            Drawable object.
 	 */
 	public void addObject(Drawable object) {
 		items.add(object);
@@ -37,8 +40,8 @@ public class DrawPanel extends JPanel {
 	}
 
 	/**
-	 * Removes last drawable object added to the drawn object list.
-	 * Useful for ghosting,
+	 * Removes last drawable object added to the drawn object list. Useful for
+	 * ghosting,
 	 */
 	public void remove() {
 		if (items.size() > 0)
@@ -47,8 +50,8 @@ public class DrawPanel extends JPanel {
 	}
 
 	/**
-	 * Loops through all drawn objects and calls the Paint component for
-	 * that object.
+	 * Loops through all drawn objects and calls the Paint component for that
+	 * object.
 	 */
 	@Override
 	public void paintComponent(Graphics g) {
@@ -59,7 +62,15 @@ public class DrawPanel extends JPanel {
 			drawItem.paintComponent(g);
 		}
 	}
-	
+
+	/**
+	 * Called when a {@link controller.Server} sends an
+	 * {@link command.UpdateClientCommand} to the {@link controller.Client} that
+	 * contains the {@link view.NetPaintClient} that contains this drawpanel.
+	 * 
+	 * @param items
+	 *            The new list of {@link shapes.Drawable} items.
+	 */
 	public void update(List<Drawable> items) {
 		this.items = items;
 		repaint();

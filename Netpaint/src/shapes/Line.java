@@ -1,4 +1,4 @@
-package model;
+package shapes;
 import java.awt.Color;
 import java.awt.Graphics;
 

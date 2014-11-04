@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,15 +22,17 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import model.AddObjectCommand;
-import model.Drawable;
-import model.Image;
-import model.Line;
-import model.Oval;
-import model.Rectangle;
+import command.AddObjectCommand;
+
+import shapes.Drawable;
+import shapes.Image;
+import shapes.Line;
+import shapes.Oval;
+import shapes.Rectangle;
 
 /**
  * NetPaintClient holds the programs main method and constructs the GUI.
+ * 
  * @author Abhishek Rane
  * @author Bryce Hammod
  */
@@ -49,17 +52,17 @@ public class NetPaintClient extends JFrame {
 	private static String ovalString = "Oval";
 	private static String rectangleString = "Rectangle";
 	private static String imageString = "Image";
-	
+
 	private ObjectOutputStream output;
 
 	/**
-	 * Constructs a GUI with a DrawPanel in a scroll pane,
-	 * a panel with buttons, and a panel with a JColorChooser. 
-	 * Sets all actionlisteners.
+	 * Constructs a GUI with a DrawPanel in a scroll pane, a panel with buttons,
+	 * and a panel with a JColorChooser. Sets all actionlisteners. Links it with
+	 * a @{link controller.Client} for newtwork operations.
 	 */
 	public NetPaintClient(ObjectOutputStream output, String clientName) {
 		this.output = output;
-		
+
 		setTitle("Net Paint Client: " + clientName);
 		setSize(1000, 1000);
 		setMinimumSize(new Dimension(1000, 1000));
@@ -120,16 +123,9 @@ public class NetPaintClient extends JFrame {
 	}
 
 	/**
-	 * Main method, creates a new NetPaintClient.
-	 * @param args
-	 */
-//	public static void main(String[] args) {
-//		new NetPaintClient();
-//	}
-
-	/**
-	 * MouseListener listens for mousePressed and mouseMoved. Handels all logic for
-	 * passing object to draw panel.
+	 * MouseListener listens for mousePressed and mouseMoved. Handels all logic
+	 * for passing object to draw panel.
+	 * 
 	 * @author Abhishek Rane
 	 * @author Bryce Hammod
 	 */
@@ -156,20 +152,20 @@ public class NetPaintClient extends JFrame {
 							e.getY() - initialYLocation, e.getX()
 									- initialXLocation, color);
 					drawPanel.addObject((Drawable) line);
-					try{
+					try {
 						output.writeObject(new AddObjectCommand(line));
-					}catch(Exception e1){
+					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-					
+
 				} else if (currentString.equals(rectangleString)) {
 					Rectangle rect = new Rectangle(initialXLocation,
 							initialYLocation, e.getY() - initialYLocation,
 							e.getX() - initialXLocation, color);
 					drawPanel.addObject((Drawable) rect);
-					try{
+					try {
 						output.writeObject(new AddObjectCommand(rect));
-					}catch(Exception e1){
+					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
 				} else if (currentString.equals(ovalString)) {
@@ -177,9 +173,9 @@ public class NetPaintClient extends JFrame {
 							e.getY() - initialYLocation, e.getX()
 									- initialXLocation, color);
 					drawPanel.addObject((Drawable) oval);
-					try{
+					try {
 						output.writeObject(new AddObjectCommand(oval));
-					}catch(Exception e1){
+					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
 				} else if (currentString.equals(imageString)) {
@@ -187,9 +183,9 @@ public class NetPaintClient extends JFrame {
 							e.getY() - initialYLocation, e.getX()
 									- initialXLocation, color);
 					drawPanel.addObject((Drawable) image);
-					try{
+					try {
 						output.writeObject(new AddObjectCommand(image));
-					}catch(Exception e1){
+					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
 				}
@@ -214,6 +210,9 @@ public class NetPaintClient extends JFrame {
 		public void mouseDragged(MouseEvent e) {
 		}
 
+		/**
+		 * Handles the ghosting aware logic for the client.
+		 */
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			if (mousePressed) {
@@ -251,6 +250,7 @@ public class NetPaintClient extends JFrame {
 
 	/**
 	 * ButtonListener for drawable object selection.
+	 * 
 	 * @author Abhishek Rane
 	 * @author Bryce Hammod
 	 */
@@ -261,9 +261,10 @@ public class NetPaintClient extends JFrame {
 			currentString = e.getActionCommand();
 		}
 	}
-	
+
 	/**
 	 * ChangeListener for color change selection.
+	 * 
 	 * @author Abhishek Rane
 	 * @author Bryce Hammod
 	 */
@@ -274,7 +275,16 @@ public class NetPaintClient extends JFrame {
 			color = jcc.getColor();
 		}
 	}
-	
+
+	/**
+	 * Called when a Called when a {@link controller.Server} sends an
+	 * {@link command.UpdateClientCommand} to the {@link controller.Client} of
+	 * this instance of the client app. The {@link controller.Client} sends the
+	 * list of items to this object. Tells the {@link view.DrawPanel} to update
+	 * its list of items.
+	 * 
+	 * @param items A list of {@link shapes.Drawable} items.
+	 */
 	public void update(List<Drawable> items) {
 		drawPanel.update(items);
 	}

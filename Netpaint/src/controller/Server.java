@@ -8,11 +8,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import model.Command;
-import model.DisconnectCommand;
-import model.Drawable;
-import model.UpdateClientCommand;
+import command.Command;
+import command.DisconnectCommand;
+import command.UpdateClientCommand;
 
+import shapes.Drawable;
+
+/**
+ * Creates a server at the local machine and begins to listen to port 9001 for incoming connections.
+ * @author Abhishek Rane
+ * @author Bryce Hammond
+ *
+ */
 public class Server {
 	private ServerSocket socket;
 	
@@ -45,6 +52,11 @@ public class Server {
 		}
 	}
 
+	/**
+	 *	This thread listens for incoming connection and adds them to the server.
+	 *
+	 *@author Gabe Kishi
+	 */
 	private class ClientAccepter implements Runnable{
 		public void run() {
 			try{
@@ -73,6 +85,9 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Sets up a new server at the port 9001.
+	 */
 	public Server(){
 		this.items = new ArrayList<Drawable>();
 		this.outputs = new HashMap<String, ObjectOutputStream>(); // setup the map
@@ -80,7 +95,7 @@ public class Server {
 		try{
 			// start a new server on port 9001
 			socket = new ServerSocket(9001);
-			System.out.println("NRCServer started on port 9001");
+			System.out.println("NetPaintServer started on port 9001");
 			
 			// spawn a client accepter thread
 			new Thread(new ClientAccepter()).start();
@@ -90,11 +105,20 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Adds an item to the master list of {@link shapes.Drawable} objects. This method is called by the {@link command.AddObjectCommand}
+	 * Informs all {@link controller.Client}s that an update occurred.
+	 * @param item The {@link shapes.Drawable} to be added. 
+	 */
 	public void addItem(Drawable item){
 		items.add(item);
 		updateClients();
 	}
-
+	
+	/**
+	 * Called when the list of items is modified.
+	 * Sends an {@link command.UpdateClientCommand} to all (@link controller.Client}s.
+	 */
 	public void updateClients() {
 		// make an UpdateClientCommmand, write to all connected users
 		UpdateClientCommand update = new UpdateClientCommand(items);
@@ -107,10 +131,10 @@ public class Server {
 		}
 	}
 	
-	public static void main(String[] args){
-		new Server();
-	}
-
+	/**
+	 * Executed when a (@link commands.DisconnectCommand} is received by the server. Removes the (@link controller.Client}.
+	 * @param clientName The username of the (@link controller.Client} that disconnected.
+	 */
 	public void disconnect(String clientName) {
 		try{
 			outputs.get(clientName).close(); // close output stream
@@ -121,5 +145,13 @@ public class Server {
 		} catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * The entry point for the server app.
+	 * @param args Not used here.
+	 */
+	public static void main(String[] args){
+		new Server();
 	}
 }
